@@ -38,12 +38,18 @@ export default [
 				selector: 'audio',
 				attribute: 'preload',
 			},
+			muted: {
+				type: 'boolean',
+				source: 'attribute',
+				selector: 'audio',
+				attribute: 'muted',
+			},
 		},
 		supports: {
 			align: true,
 		},
 		save( { attributes } ) {
-			const { autoplay, caption, loop, preload, src } = attributes;
+			const { autoplay, muted, caption, loop, preload, src } = attributes;
 
 			return (
 				<figure>
@@ -53,6 +59,7 @@ export default [
 						autoPlay={ autoplay }
 						loop={ loop }
 						preload={ preload }
+						muted={ muted }
 					/>
 					{ ! RichText.isEmpty( caption ) && (
 						<RichText.Content
