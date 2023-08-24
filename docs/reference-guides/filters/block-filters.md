@@ -58,7 +58,7 @@ _Example:_
 Ensure that List blocks are saved with the canonical generated class name (`wp-block-list`):
 
 ```js
-function addListBlockClassName( settings, name ) {
+function wpDocsAddListBlockClassName( settings, name ) {
 	if ( name !== 'core/list' ) {
 		return settings;
 	}
@@ -75,7 +75,7 @@ function addListBlockClassName( settings, name ) {
 wp.hooks.addFilter(
 	'blocks.registerBlockType',
 	'my-plugin/class-names/list-block',
-	addListBlockClassName
+	wpDocsAddListBlockClassName
 );
 ```
 
@@ -94,7 +94,7 @@ _Example:_
 Wraps a cover block into an outer container.
 
 ```js
-function wrapCoverBlockInContainer( element, blockType, attributes ) {
+function wpDocsWrapCoverBlockInContainer( element, blockType, attributes ) {
 	// skip if element is undefined
 	if ( ! element ) {
 		return;
@@ -112,7 +112,7 @@ function wrapCoverBlockInContainer( element, blockType, attributes ) {
 wp.hooks.addFilter(
 	'blocks.getSaveElement',
 	'my-plugin/wrap-cover-block-in-container',
-	wrapCoverBlockInContainer
+	wpDocsWrapCoverBlockInContainer
 );
 ```
 
@@ -127,7 +127,7 @@ _Example:_
 Adding a background by default to all blocks.
 
 ```js
-function addBackgroundColorStyle( props ) {
+function wpDocsAddBackgroundColorStyle( props ) {
 	return {
 		...props,
 		style: { backgroundColor: 'red' },
@@ -137,7 +137,7 @@ function addBackgroundColorStyle( props ) {
 wp.hooks.addFilter(
 	'blocks.getSaveContent.extraProps',
 	'my-plugin/add-background-color-style',
-	addBackgroundColorStyle
+	wpDocsAddBackgroundColorStyle
 );
 ```
 
@@ -153,7 +153,7 @@ _Example:_
 
 ```js
 // Our filter function
-function setBlockCustomClassName( className, blockName ) {
+function wpDocsSetBlockCustomClassName( className, blockName ) {
 	return blockName === 'core/code' ? 'my-plugin-code' : className;
 }
 
@@ -161,7 +161,7 @@ function setBlockCustomClassName( className, blockName ) {
 wp.hooks.addFilter(
 	'blocks.getBlockDefaultClassName',
 	'my-plugin/set-block-custom-class-name',
-	setBlockCustomClassName
+	wpDocsSetBlockCustomClassName
 );
 ```
 
@@ -187,7 +187,7 @@ const { createHigherOrderComponent } = wp.compose;
 const { InspectorControls } = wp.blockEditor;
 const { PanelBody } = wp.components;
 
-const withInspectorControls = createHigherOrderComponent( ( BlockEdit ) => {
+const wpDocsWithInspectorControls = createHigherOrderComponent( ( BlockEdit ) => {
 	return ( props ) => {
 		return (
 			<>
@@ -203,7 +203,7 @@ const withInspectorControls = createHigherOrderComponent( ( BlockEdit ) => {
 wp.hooks.addFilter(
 	'editor.BlockEdit',
 	'my-plugin/with-inspector-controls',
-	withInspectorControls
+	wpDocsWithInspectorControls
 );
 ```
 
@@ -212,7 +212,7 @@ wp.hooks.addFilter(
 ```js
 var el = wp.element.createElement;
 
-var withInspectorControls = wp.compose.createHigherOrderComponent( function (
+var wpDocsWithInspectorControls = wp.compose.createHigherOrderComponent( function (
 	BlockEdit
 ) {
 	return function ( props ) {
@@ -233,7 +233,7 @@ var withInspectorControls = wp.compose.createHigherOrderComponent( function (
 wp.hooks.addFilter(
 	'editor.BlockEdit',
 	'my-plugin/with-inspector-controls',
-	withInspectorControls
+	wpDocsWithInspectorControls
 );
 ```
 
@@ -251,7 +251,7 @@ _Example:_
 ```js
 const { createHigherOrderComponent } = wp.compose;
 
-const withClientIdClassName = createHigherOrderComponent(
+const wpDocsWithClientIdClassName = createHigherOrderComponent(
 	( BlockListBlock ) => {
 		return ( props ) => {
 			return (
@@ -268,7 +268,7 @@ const withClientIdClassName = createHigherOrderComponent(
 wp.hooks.addFilter(
 	'editor.BlockListBlock',
 	'my-plugin/with-client-id-class-name',
-	withClientIdClassName
+	wpDocsWithClientIdClassName
 );
 ```
 
@@ -277,7 +277,7 @@ wp.hooks.addFilter(
 ```js
 var el = wp.element.createElement;
 
-var withClientIdClassName = wp.compose.createHigherOrderComponent( function (
+var wpDocsWithClientIdClassName = wp.compose.createHigherOrderComponent( function (
 	BlockListBlock
 ) {
 	return function ( props ) {
@@ -294,7 +294,7 @@ var withClientIdClassName = wp.compose.createHigherOrderComponent( function (
 wp.hooks.addFilter(
 	'editor.BlockListBlock',
 	'my-plugin/with-client-id-class-name',
-	withClientIdClassName
+	wpDocsWithClientIdClassName
 );
 ```
 
@@ -309,7 +309,7 @@ _Example:_
 
 ```js
 const { createHigherOrderComponent } = wp.compose;
-const withMyWrapperProp = createHigherOrderComponent( ( BlockListBlock ) => {
+const wpDocsWithMyWrapperProp = createHigherOrderComponent( ( BlockListBlock ) => {
 	return ( props ) => {
 		const wrapperProps = {
 			...props.wrapperProps,
@@ -321,7 +321,7 @@ const withMyWrapperProp = createHigherOrderComponent( ( BlockListBlock ) => {
 wp.hooks.addFilter(
 	'editor.BlockListBlock',
 	'my-plugin/with-my-wrapper-prop',
-	withMyWrapperProp
+	wpDocsWithMyWrapperProp
 );
 ```
 
@@ -331,7 +331,7 @@ wp.hooks.addFilter(
 var el = wp.element.createElement;
 var hoc = wp.compose.createHigherOrderComponent;
 
-var withMyWrapperProp = hoc( function ( BlockListBlock ) {
+var wpDocsWithMyWrapperProp = hoc( function ( BlockListBlock ) {
 	return function ( props ) {
 		var newProps = {
 			...props,
@@ -346,7 +346,7 @@ var withMyWrapperProp = hoc( function ( BlockListBlock ) {
 wp.hooks.addFilter(
 	'editor.BlockListBlock',
 	'my-plugin/with-my-wrapper-prop',
-	withMyWrapperProp
+	wpDocsWithMyWrapperProp
 );
 ```
 
@@ -407,7 +407,7 @@ If you want to disable all blocks except an allow list, you can adapt the script
 ```js
 // my-plugin.js
 
-var allowedBlocks = [
+var wpDocsAllowedBlocks = [
 	'core/paragraph',
 	'core/image',
 	'core/html',
